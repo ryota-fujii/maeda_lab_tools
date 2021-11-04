@@ -28,3 +28,5 @@ for i in range(len(filenames)):
   else:
     dfs = pd.merge(dfs, df, on="nm")
 dfs.to_csv(csv_path + csv_name + ".csv")
+
+print("完了")

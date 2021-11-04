@@ -5,9 +5,9 @@ import glob
 print("出力するCSVファイルの名前を入力してください")
 csv_name = str(input())
 
-txt_path = "./txt_exchange/"
-csv_path = "./csv_convert/"
-files = sorted(glob.glob("./txt_exchange/*.TXT"))
+txt_path = "./raw_data/"
+csv_path = "./converted_data/"
+files = sorted(glob.glob(txt_path+"/*.TXT"))
 filenames = []
 dfs = pd.DataFrame()
 for file in files:
@@ -28,3 +28,5 @@ for i in range(len(filenames)):
   else:
     dfs = pd.merge(dfs, df, on="nm")
 dfs.to_csv(csv_path + csv_name + ".csv")
+
+print("完了")
