@@ -11,9 +11,6 @@ filenames = []
 for file in files:
     filenames.append(os.path.splitext(os.path.basename(file))[0])
 
-
-# file = str(glob.glob(raw_data_path + "/*.out"))
-# filename = os.path.splitext(os.path.basename(file))[0]
 dfs = pd.DataFrame()
 
 for i in range(len(filenames)):
@@ -46,6 +43,7 @@ for i in range(len(filenames)):
     df2_split["round_%"] = df2_split["%"].round(2)
     df2_split.to_csv(exchanged_data_path + filename + "_probab" +".csv")
 
-print("変換処理が終わりました")
+
+print("　(´･ω･`)\n＿(__つ/￣￣￣/＿\n　　＼/　　　　 /\n　　　 ￣￣￣￣\n\n　(´･ω･`)\n＿(　つ　ミ　　ﾊﾞﾀﾝｯ\n　　＼￣￣￣＼ミ\n　　　 ￣￣￣￣\n\n　(´･ω･`)\n＿(　　　)\n　　＼￣￣￣＼')\n変換処理が終わりました")
 
   

@@ -29,4 +29,16 @@ for i in range(len(filenames)):
     dfs = pd.merge(dfs, df, on="nm")
 dfs.to_csv(csv_path + csv_name + ".csv")
 
-print("完了")
+print("感謝は晩飯で示せ!\n"
+"　　　 /＼＿_／)\n"
+"　　 ／　| ｜ヽ＼\n"
+"　　/　　ヽ⊥ノ　ヽ\n"
+"　 ｜ﾐ<■ヽ　 /■> |\n"
+"　 ｜　ﾆ (_乂_) ﾆ |\n"
+"　 /＼_＿＿二＿＿ノ\n"
+"　｜　 ￣￣＠￣￣ヽ\n"
+"　｜＼_)　　　　　|)\n"
+"　｜　　　　　　　|\n"
+"　 ＼_　　　　　_ノ\n"
+"　　(_＞―――＜_)\n"
+)
