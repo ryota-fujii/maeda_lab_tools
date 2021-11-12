@@ -17,6 +17,7 @@ for i in range(len(filenames)):
   filename = filenames[i]
   with open(raw_data_path+filename+".out") as f:
     lines = f.readlines()
+    lines = [line.replace("\n", "") for line in lines]
     ex_st_lines = [line for line in lines if "HF="  in line]
     excited_State_strip = [line.split('\\') for line in ex_st_lines]
     df = pd.DataFrame(excited_State_strip)
