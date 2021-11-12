@@ -17,14 +17,22 @@ for i in range(len(filenames)):
   filename = filenames[i]
   with open(raw_data_path+filename+".out") as f:
     lines = f.readlines()
-    lines = [line.replace("\n", "") for line in lines]
-    ex_st_lines = [line for line in lines if "HF="  in line]
-    excited_State_strip = [line.split('\\') for line in ex_st_lines]
-    df = pd.DataFrame(excited_State_strip)
-    hf = df.iloc[0][df.iloc[0].str.contains("HF=")]
-    hf = hf.iloc[0].strip()
+    new_lines =[]
+    r_start = False
+    for line in lines:
+      if r_start == True:
+        new_lines.append(line.rstrip("\n"))
+      elif "Unable to Open any file for archive entry." in line:
+        r_start = True
+      elif " The archive entry for this job was punched." in line:
+        r_start = False
+        break
+    line_string = "".join(new_lines)
+    line_string = "".join(line_string.split())
+    line_string_strip = line_string.split('\\')
+    ex_st_line = "".join([line for line in line_string_strip if "HF=" in line])
+    hf = "".join(ex_st_line.replace("HF=", ""))
     Hf.append(float(hf.strip("HF=")))
-
 dfs = pd.DataFrame({"filename":filenames, "HF":Hf})
 dfs["kcal/mol"] = dfs["HF"]*627.51
 dfs["stability"] = dfs["kcal/mol"]-dfs["kcal/mol"].min()

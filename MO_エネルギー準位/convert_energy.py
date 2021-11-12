@@ -16,7 +16,6 @@ for i in range(len(filenames)):
   with open(raw_data_path+filename+".out") as f:
     lines = f.readlines()
     raw_homo = [line.replace("Alpha  occ. eigenvalues --" , " ").split() for line in lines if "Alpha  occ. eigenvalues --" in line]
-    
     raw_lumo = [line.replace("Alpha virt. eigenvalues --" , " ").split() for line in lines if "Alpha virt. eigenvalues --" in line]
     homo_double = list(itertools.chain.from_iterable(raw_homo))
     lumo_double = list(itertools.chain.from_iterable(raw_lumo))
@@ -47,9 +46,9 @@ for i in range(len(filenames)):
     homo_short = homo_list[-31:]
     lumo_short = lumo_list[:31]
     homo_lumo = homo_short + lumo_short
-    df = pd.DataFrame(homo_lumo, columns=["HOMO-LUMO", "homo-lumo図", "Hartree"])
+    df = pd.DataFrame(homo_lumo, columns=["HOMO-LUMO", "homo-lumo_num", "Hartree"])
     df["eV"] = df["Hartree"]*27.2114
     df["eV_round"] = df["eV"].round(3) 
-    df["x_軸"] = 3
+    df["x"] = 3
     df_rev = df.iloc[::-1]
     df_rev.to_csv(converted_data_path + filenames[i] + "_mo" + ".csv", index=False)
