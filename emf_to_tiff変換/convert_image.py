@@ -11,4 +11,4 @@ for file in files:
     filenames.append(os.path.splitext(os.path.basename(file))[0])
 
 for filename in filenames:
-  Image.open(raw_data_path+filename+".emf").save(converted_data_path+filename+".emf")
+  Image.open(raw_data_path+filename+".emf").save(converted_data_path+filename+".tiff",quality=90)
