@@ -49,6 +49,6 @@ for i in range(len(filenames)):
     df = pd.DataFrame(homo_lumo, columns=["HOMO-LUMO", "homo-lumo_num", "Hartree"])
     df["eV"] = df["Hartree"]*27.2114
     df["eV_round"] = df["eV"].round(3) 
-    df["x"] = 3
+    df["y_axis"] = 3
     df_rev = df.iloc[::-1]
     df_rev.to_csv(converted_data_path + filenames[i] + "_mo" + ".csv", index=False)
