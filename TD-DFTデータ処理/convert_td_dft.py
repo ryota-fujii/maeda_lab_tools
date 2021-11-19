@@ -18,8 +18,6 @@ filenames = []
 for file in files:
     filenames.append(os.path.splitext(os.path.basename(file))[0])
 
-dfs = pd.DataFrame()
-
 for i in range(len(filenames)):
   filename = filenames[i]
   with open(raw_data_path+filename+".out") as f:
