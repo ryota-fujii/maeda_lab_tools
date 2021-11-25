@@ -22,7 +22,7 @@ for i in range(len(filenames)):
         break
 
   df = pd.read_table(txt_path + filename + ".TXT", skiprows=nSkiprow, encoding='shift_jis')
-  df = df.rename(columns={"Abs": "Abs_" + str(i)})
+  df = df.rename(columns={"Abs": "Abs_" + filename})
   if i == 0:
     dfs = df
   else:
