@@ -55,20 +55,20 @@ for i in range(len(filenames)):
     tmp_df_state = pd.DataFrame(excited_state, index=None)
     tmp_df_state = tmp_df_state[0].str.split(expand=True)
     df_state = tmp_df_state.iloc[:,[2,4,6,8]]
-    df_state = df_state.rename(columns={2:"num", 4:"eV", 6:"nm",8:"f" })
+    df_state = df_state.rename(columns={2:"Excited_State", 4:"eV", 6:"nm",8:"f" })
     df_state["f"] = df_state["f"].str.strip("f=")
-    df_state["num"] = df_state["num"].str.strip(":")
+    df_state["Excited_State"] = df_state["Excited_State"].str.strip(":")
 
     short_df_state = df_state[df_state["f"].astype(float) >= 0.03]
     short_df_list = list(short_df_state["num"].astype(int))
 
     short_df_prob = df_prob[df_prob["Excited_State"].isin(short_df_list)]
 
-    df_state.to_csv(converted_data_path + graph_path + filename +".csv")
-    short_df_state.to_csv(converted_data_path + graph_path + filename +"_short.csv")
+    df_state.to_csv(converted_data_path + graph_path + filename +".csv", index=None)
+    short_df_state.to_csv(converted_data_path + graph_path + filename +"_short.csv", index=None)
 
-    df_prob.to_csv(converted_data_path + prob_path + filename +".csv")
-    short_df_prob.to_csv(converted_data_path + prob_path + filename + "_short.csv")
+    df_prob.to_csv(converted_data_path + prob_path + filename +".csv", index=None)
+    short_df_prob.to_csv(converted_data_path + prob_path + filename + "_short.csv", index=None)
 
 
 
