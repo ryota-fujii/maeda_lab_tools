@@ -1,15 +1,20 @@
 import os 
 import pandas as pd
 import glob
+import find_pic_num
 from pathlib import Path
+
 
 raw_data_path = "./raw_data/"
 converted_data_path = "./converted_data/"
 prob_path = "prob/"
 graph_path = "graph/"
+short_path = "short/"
 
-dir_s = Path(converted_data_path + graph_path)
-dir_p = Path(converted_data_path + prob_path)
+dir_s = Path(converted_data_path + graph_path + short_path)
+dir_p = Path(converted_data_path + prob_path + short_path)
+
+
 dir_s.mkdir(parents=True, exist_ok=True)
 dir_p.mkdir(parents=True, exist_ok=True)
 
@@ -37,6 +42,7 @@ for i in range(len(filenames)):
     excited_state = []
     excited_nums = []
     excited_list = []
+
     for n_line in new_lines:
       if "Excited State" in n_line and "nm" in n_line:
         excited_num += 1
@@ -45,13 +51,11 @@ for i in range(len(filenames)):
       if "->" in n_line or "<-" in n_line:
         excited_nums.append(excited_num)
         excited_list.append(n_line)
-
     df_prob = pd.DataFrame(excited_list, index=None)
     df_prob = df_prob[0].str.split(expand=True)
     df_prob["Excited_State"] = pd.DataFrame(excited_nums)
     df_prob["%"] = (df_prob[3].astype(float))**2*2*100
     df_prob["round_%"] = df_prob["%"].round(1)
-
     tmp_df_state = pd.DataFrame(excited_state, index=None)
     tmp_df_state = tmp_df_state[0].str.split(expand=True)
     df_state = tmp_df_state.iloc[:,[2,4,6,8]]
@@ -60,16 +64,18 @@ for i in range(len(filenames)):
     df_state["Excited_State"] = df_state["Excited_State"].str.strip(":")
 
     short_df_state = df_state[df_state["f"].astype(float) >= 0.03]
-    short_df_list = list(short_df_state["num"].astype(int))
-
+    # short_df_list = list(short_df_state["num"].astype(int))
+    short_df_list = list(short_df_state["Excited_State"].astype(int))
     short_df_prob = df_prob[df_prob["Excited_State"].isin(short_df_list)]
 
     df_state.to_csv(converted_data_path + graph_path + filename +".csv", index=None)
-    short_df_state.to_csv(converted_data_path + graph_path + filename +"_short.csv", index=None)
+    short_df_state.to_csv(converted_data_path + graph_path + short_path +filename +"_short.csv", index=None)
 
     df_prob.to_csv(converted_data_path + prob_path + filename +".csv", index=None)
-    short_df_prob.to_csv(converted_data_path + prob_path + filename + "_short.csv", index=None)
+    short_df_prob.to_csv(converted_data_path + prob_path + short_path + filename + "_short.csv", index=None)
 
+    print(filename + "was converted!!(｀・∀・´) ")
 
+find_pic_num.pic_nums()
 
 print("　(´･ω･`)\n＿(__つ/￣￣￣/＿\n　　＼/　　　　 /\n　　　 ￣￣￣￣\n\n　(´･ω･`)\n＿(　つ　ミ　　ﾊﾞﾀﾝｯ\n　　＼￣￣￣＼ミ\n　　　 ￣￣￣￣\n\n　(´･ω･`)\n＿(　　　)\n　　＼￣￣￣＼')\n変換処理が終わりました")
