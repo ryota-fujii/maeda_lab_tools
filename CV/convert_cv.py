@@ -2,12 +2,12 @@ import os
 import pandas as pd
 import glob
 
-print("出力するCSVファイルの名前を入力してください")
-csv_name = str(input())
+# print("出力するCSVファイルの名前を入力してください")
+# csv_name = str(input())
 
 txt_path = "./raw_data/"
 csv_path = "./converted_data/"
-files = sorted(glob.glob(txt_path+"/*.TXT"))
+files = sorted(glob.glob(txt_path+"/*.txt"))
 filenames = []
 dfs = pd.DataFrame()
 for file in files:
@@ -17,17 +17,16 @@ for i in range(len(filenames)):
   with open(txt_path + filename + ".TXT", encoding='shift_jis') as f:
     nSkiprow = 0
     for line in f.readlines():
-      nSkiprow += 1
-      if line.startswith("ﾃﾞｰﾀﾘｽﾄ"):
+      if line.startswith("Potential/V, Current/A"):
         break
+      nSkiprow += 1
 
-  df = pd.read_table(txt_path + filename + ".TXT", skiprows=nSkiprow, encoding='shift_jis')
-  df = df.rename(columns={"Abs": "Abs_" + filename})
-  if i == 0:
-    dfs = df
-  else:
-    dfs = pd.merge(dfs, df, on="nm")
-dfs.to_csv(csv_path + csv_name + ".csv")
+  df = pd.read_table(txt_path + filename + ".txt", skiprows=nSkiprow, encoding='shift_jis')
+  df_s = df["Potential/V, Current/A"].str.split(",", expand=True)
+  df_s.columns = ["Potential/V", "Current/A"]
+  print(df_s)
+  df_s.to_csv(csv_path + filename + ".csv")
+
 
 print("感謝は晩飯で示せ!\n"
 "　　　 /＼＿_／)\n"

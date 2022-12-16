@@ -13,7 +13,8 @@ for i in range(len(filenames)):
   filename = filenames[i]
   with open(csv_path + filename +".csv") as f:
     df = pd.read_csv(csv_path + filename + ".csv")
-    max_row = df["Abs_0"].idxmax()
+    max_row = df.iloc[:,2].idxmax()
+    print(df.iloc[:,2])
     extracted = df.loc[max_row]
     extracted
     extracted.to_csv(extract_path + filename + "_ext.csv")

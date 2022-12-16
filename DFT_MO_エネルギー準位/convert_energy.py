@@ -22,8 +22,12 @@ for i in range(len(filenames)):
     #homo lumoが2回記述されているので分割して片方を用いる
     homo_len = int(len(homo_double)/2)
     lumo_len = int(len(lumo_double)/2)
-    homo = homo_double[:homo_len]
-    lumo = lumo_double[:lumo_len]
+    # homo = homo_double[:homo_len]
+    # lumo = lumo_double[:lumo_len]
+    homo = homo_double[homo_len:homo_len*2]
+    lumo = lumo_double[lumo_len:lumo_len*2]
+    print(homo)
+
     homo = [float(s) for s in homo]
     lumo = [float(s) for s in lumo]
     homo_num = list(range(1,homo_len+1))
